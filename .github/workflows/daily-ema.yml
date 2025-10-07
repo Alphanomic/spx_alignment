@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with: # 이 줄을 추가
+          fetch-depth: 0 # 이 줄을 추가
 
       - name: Set up Python
         uses: actions/setup-python@v4
