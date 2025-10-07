@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 파일 접근 오류 해결을 위해 추가
+          fetch-depth: 0 # 파일 접근 안정성 향상
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,8 +25,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run EMA analysis script
-        # 중복된 경로 오류 해결을 위해 작업 디렉토리 명시 (working-directory)
-        working-directory: ./
+        # 작업 공간 환경 변수를 사용하여 경로를 강제로 지정합니다.
+        working-directory: ${{ github.workspace }}
         run: python sp500_ema_trend_with_telegram_v3.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
