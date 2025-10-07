@@ -13,6 +13,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          path: . # <-- 이 부분이 중복 경로 문제를 해결합니다!
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,8 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run EMA analysis script
-        # **핵심 수정: working-directory를 리포지토리 이름으로 지정**
-        working-directory: spx_alignment 
+        # working-directory 옵션은 제거하고, 기본 경로에서 실행합니다.
         run: python sp500_ema_trend_with_telegram_v3.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
